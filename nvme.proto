@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package nvme;
+
+service NvmeAgent {
+  rpc Stream(stream AgentMessage) returns (stream ServerMessage);
+}
+
+message AgentMessage {
+  oneof payload {
+    Hello hello = 1;
+    MetricsPush metrics = 2;
+    ReloadResponse reload_response = 3;
+  }
+}
+
+message ServerMessage {
+  oneof payload {
+    HelloAck hello_ack = 1;
+    ReloadRequest reload_request = 2;
+  }
+}
+
+message Hello {
+  string node_name = 1;
+  string agent_version = 2;
+  double sampling_interval_seconds = 3;
+  string profiles_json = 4;
+}
+
+message HelloAck {
+  bool accepted = 1;
+  string reason = 2;
+}
+
+message MetricsPush {
+  int64 timestamp_ms = 1;
+  repeated DeviceMetrics devices = 2;
+}
+
+message DeviceMetrics {
+  string name = 1;
+  string model = 2;
+  string serial = 3;
+  string profile_key = 4;
+  string status = 5;
+  Derived derived = 6;
+}
+
+message Derived {
+  double avg_queue_depth = 1;
+  double concurrency_util_ratio = 2;
+  double iops_util_ratio = 3;
+  double bandwidth_util_ratio = 4;
+  double read_latency_seconds = 5;
+  double write_latency_seconds = 6;
+  double combined_latency_seconds = 7;
+  double read_iops = 8;
+  double write_iops = 9;
+  double total_iops = 10;
+  double read_bytes_per_second = 11;
+  double write_bytes_per_second = 12;
+  double busy_ratio = 13;
+  int32 saturation_state = 14;
+  double effective_max_iops = 15;
+  double effective_max_bandwidth = 16;
+  double effective_optimal_qd = 17;
+  double discard_iops = 18;
+  double discard_avg_latency_seconds = 19;
+  double discarded_megabytes_per_second = 20;
+  double discard_time_share = 21;
+  double flush_iops = 22;
+  double flush_avg_latency_seconds = 23;
+  double flush_time_share = 24;
+  int32 inflight_read = 25;
+  int32 inflight_write = 26;
+  double read_concurrency_est = 27;
+  double write_concurrency_est = 28;
+  string saturation_hint = 29;
+  double temperature_celsius = 30;
+}
+
+message ReloadRequest {
+  string request_id = 1;
+}
+
+message ReloadResponse {
+  string request_id = 1;
+  string status = 2;
+  string reason = 3;
+  int32 profile_count = 4;
+}

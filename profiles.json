@@ -1,0 +1,95 @@
+{
+  "version": "1.2.0",
+  "profiles": {
+    "990_evo_plus": {
+      "model_match": "Samsung SSD 990 EVO Plus",
+      "nominal": {
+        "random_read_iops": 1000000,
+        "random_write_iops": 1350000,
+        "seq_read_bps": 7250000000,
+        "seq_write_bps": 6300000000
+      },
+      "realistic": {
+        "random_read_iops": 800000,
+        "random_write_iops": 945000,
+        "seq_read_bps": 6525000000,
+        "seq_write_bps": 5040000000
+      },
+      "saturation": {
+        "optimal_qd": 32,
+        "effective_optimal_qd": 27,
+        "thresholds": {
+          "busy_ratio_idle": 0.01,
+          "concurrency_light": 0.25,
+          "concurrency_saturated": 0.85,
+          "concurrency_min_for_critical": 0.5,
+          "iops_saturated": 0.85,
+          "iops_sick": 0.5,
+          "latency_warning_ms": 3.0,
+          "latency_critical_ms": 10.0
+        },
+        "hint_thresholds": {
+          "flush_share_heavy": 0.2,
+          "discard_share_heavy": 0.2
+        }
+      },
+      "heatmap_thresholds": {
+        "write_latency_ms":    [0.3, 1.0, 3.0],
+        "read_latency_ms":     [0.2, 0.7, 2.0],
+        "combined_latency_ms": [0.3, 1.0, 3.0],
+        "concurrency_util":    [0.25, 0.60, 0.85],
+        "iops_util":           [0.30, 0.70, 0.90],
+        "bandwidth_util":      [0.30, 0.70, 0.90],
+        "busy_ratio":          [0.40, 0.70, 0.90],
+        "flush_time_share":    [0.05, 0.15, 0.30],
+        "discard_time_share":  [0.05, 0.15, 0.30],
+        "temperature_celsius": [50, 65, 75]
+      }
+    },
+    "pm9a1": {
+      "model_match": "SAMSUNG MZVL21T0HCLR-00B00",
+      "nominal": {
+        "random_read_iops": 1000000,
+        "random_write_iops": 850000,
+        "seq_read_bps": 7000000000,
+        "seq_write_bps": 5100000000
+      },
+      "realistic": {
+        "random_read_iops": 800000,
+        "random_write_iops": 595000,
+        "seq_read_bps": 6300000000,
+        "seq_write_bps": 4080000000
+      },
+      "saturation": {
+        "optimal_qd": 32,
+        "effective_optimal_qd": 27,
+        "thresholds": {
+          "busy_ratio_idle": 0.01,
+          "concurrency_light": 0.25,
+          "concurrency_saturated": 0.85,
+          "concurrency_min_for_critical": 0.5,
+          "iops_saturated": 0.85,
+          "iops_sick": 0.5,
+          "latency_warning_ms": 3.0,
+          "latency_critical_ms": 10.0
+        },
+        "hint_thresholds": {
+          "flush_share_heavy": 0.2,
+          "discard_share_heavy": 0.2
+        }
+      },
+      "heatmap_thresholds": {
+        "write_latency_ms":    [0.2, 0.7, 2.0],
+        "read_latency_ms":     [0.15, 0.5, 1.5],
+        "combined_latency_ms": [0.2, 0.7, 2.0],
+        "concurrency_util":    [0.25, 0.60, 0.85],
+        "iops_util":           [0.30, 0.70, 0.90],
+        "bandwidth_util":      [0.30, 0.70, 0.90],
+        "busy_ratio":          [0.40, 0.70, 0.90],
+        "flush_time_share":    [0.05, 0.15, 0.30],
+        "discard_time_share":  [0.05, 0.15, 0.30],
+        "temperature_celsius": [50, 65, 75]
+      }
+    }
+  }
+}

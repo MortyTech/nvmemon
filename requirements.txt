@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+httpx
+python-snappy
+grpcio
+grpcio-tools
+protobuf
