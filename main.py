@@ -35,6 +35,7 @@ import httpx
 import snappy
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 import nvme_pb2
 import nvme_pb2_grpc
@@ -2067,6 +2068,10 @@ async def timeseries_metrics():
             for name, entry in METRIC_CATALOG.items()
         }
     }
+
+
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="ui")
 
 
 if __name__ == "__main__":

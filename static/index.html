@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NVMe Monitor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="dot" id="hdr-dot"></span>
+    <h1>NVMe Monitor</h1>
+  </div>
+  <div class="controls">
+    <label>Node
+      <select id="node-select"></select>
+    </label>
+    <label>Refresh
+      <select id="poll-select">
+        <option value="5000" selected>5s</option>
+        <option value="10000">10s</option>
+        <option value="30000">30s</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="panel" id="fleet-panel">
+    <div class="panel-head">
+      <h2>Fleet heatmap</h2>
+      <select id="fleet-metric"></select>
+    </div>
+    <div class="heatmap-wrap">
+      <div class="heatmap-container" id="fleet-grid"></div>
+      <div class="empty-overlay" id="fleet-empty" hidden>no disks discovered yet</div>
+    </div>
+    <div class="legend" id="sev-legend"></div>
+    <p class="hint">click a tile to inspect that disk · hover for values</p>
+  </section>
+
+  <section class="panel" id="detail-panel">
+    <div class="panel-head">
+      <h2>Node detail</h2>
+      <div class="head-controls">
+        <select id="disk-select"></select>
+        <div class="seg" id="window-seg">
+          <button type="button" data-w="3600">1h</button>
+          <button type="button" data-w="21600">6h</button>
+          <button type="button" data-w="86400" class="active">24h</button>
+          <button type="button" data-w="604800">7d</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail-disabled" class="empty-overlay" hidden>
+      select a specific node to see per-disk detail
+    </div>
+
+    <div class="detail-content" id="detail-content">
+      <div class="live-strip" id="live-strip"></div>
+
+      <h3>Charts</h3>
+      <div class="chips" id="chart-chips"></div>
+      <div class="charts" id="charts"></div>
+
+      <div class="panel-head sub">
+        <h3>History heatmap <span class="muted">(N square cells)</span></h3>
+        <div class="head-controls">
+          <select id="heat-metric"></select>
+          <label class="inline">N
+            <input type="number" id="heat-n" min="16" max="4096" step="16" value="1024">
+          </label>
+        </div>
+      </div>
+      <div class="heatmap-wrap">
+        <div class="heatmap-container short" id="history-heat"></div>
+        <div class="empty-overlay" id="heat-empty" hidden>no history data</div>
+      </div>
+      <p class="hint" id="heat-hint"></p>
+    </div>
+  </section>
+</main>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<script src="heatmap.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

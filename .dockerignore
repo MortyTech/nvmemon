@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.git/
+.archify/
+.zcodeignore
+.env
+.DS_Store

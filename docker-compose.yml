@@ -1,0 +1,32 @@
+services:
+  server:
+    build: .
+    image: nvmemon:latest
+    container_name: nvmemon-server
+    environment:
+      NVME_NODE_NAME: ${SERVER_NODE_NAME:-hub}
+      NVME_GRPC_LISTEN_PORT: "50051"          # server role
+      NVME_SAMPLING_INTERVAL: ${NVME_SAMPLING_INTERVAL:-5.0}
+      NVME_PROM_REMOTE_WRITE_URL: ${NVME_PROM_REMOTE_WRITE_URL:-}
+      NVME_PROM_QUERY_URL: ${NVME_PROM_QUERY_URL:-}
+    ports:
+      - "8000:8000"                           # HTTP API
+      - "50051:50051"                         # gRPC for agents
+    restart: unless-stopped
+
+  agent:
+    image: nvmemon:latest
+    build: .
+    container_name: nvmemon-agent
+    environment:
+      NVME_NODE_NAME: ${AGENT_NODE_NAME:-node1}
+      NVME_GRPC_SERVER_URL: server:50051      # agent role
+      NVME_SAMPLING_INTERVAL: ${NVME_SAMPLING_INTERVAL:-5.0}
+      NVME_PROM_REMOTE_WRITE_URL: ${NVME_PROM_REMOTE_WRITE_URL:-}
+    # Uncomment on Linux hosts if /sys/block is not visible in the container:
+    # volumes:
+    #   - /sys:/sys:ro
+    # pid: "host"
+    depends_on:
+      - server
+    restart: unless-stopped

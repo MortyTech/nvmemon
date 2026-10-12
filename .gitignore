@@ -5,3 +5,5 @@ venv/
 .env
 .DS_Store
 .archify/
+.nvme_pb2.py
+.nvme_pb2_grpc.py
